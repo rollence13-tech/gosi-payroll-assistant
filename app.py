@@ -1,9 +1,8 @@
 import streamlit as st
+from datetime import date
 
 # ============================================================
-# GOSI RULES — V1
-# Keep rules separate from calculation logic.
-# Verify official GOSI rules before production use.
+# GOSI RULES — V1 PROTOTYPE
 # ============================================================
 
 GOSI_RULES = {
@@ -50,7 +49,6 @@ def calculate_gosi(nationality, basic_salary, housing_allowance):
         rules = GOSI_RULES["existing_system"]["non_saudi"]
 
         employee_contribution = 0
-
         employer_contribution = contributory_wage * (
             rules["occupational_hazards_employer"]
         )
@@ -95,13 +93,19 @@ housing_allowance = st.number_input(
     min_value=0.0,
     value=0.0
 )
+
 employment_date = st.date_input(
-    "Employment date"
+    "Employment date",
+    value=date.today()
 )
-if employment_date >= __import__("datetime").date(2024, 7, 3):
+
+# Determine assessment regime
+if employment_date >= date(2024, 7, 3):
     regime = "New Social Insurance Law assessment"
 else:
     regime = "Existing-system assessment"
+
+
 if st.button("Calculate GOSI"):
 
     result = calculate_gosi(
@@ -110,10 +114,12 @@ if st.button("Calculate GOSI"):
         housing_allowance
     )
 
-st.info(f"Assessment: {regime}")
-st.subheader("Calculation Result")
+    st.info(f"Assessment: {regime}")
+
+    st.subheader("Calculation Result")
 
     st.write(f"**Employee:** {employee_name}")
+
     st.write(
         f"**Contributory wage:** "
         f"SAR {result['contributory_wage']:,.2f}"
@@ -135,6 +141,6 @@ st.subheader("Calculation Result")
     )
 
     st.warning(
-        "Prototype only. Verify the applicable GOSI rules "
+        "Prototype only. Verify applicable GOSI rules "
         "before using this for actual payroll."
     )
