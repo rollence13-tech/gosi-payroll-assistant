@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import date
 
 # ============================================================
-# GOSI RULES — V1 PROTOTYPE
+# GOSI RULES — PROTOTYPE
 # ============================================================
 
 GOSI_RULES = {
@@ -49,15 +49,20 @@ def calculate_gosi(nationality, basic_salary, housing_allowance):
         rules = GOSI_RULES["existing_system"]["non_saudi"]
 
         employee_contribution = 0
-        employer_contribution = contributory_wage * (
-            rules["occupational_hazards_employer"]
+
+        employer_contribution = (
+            contributory_wage
+            * rules["occupational_hazards_employer"]
         )
 
     return {
         "contributory_wage": contributory_wage,
         "employee_contribution": employee_contribution,
         "employer_contribution": employer_contribution,
-        "total_gosi": employee_contribution + employer_contribution,
+        "total_gosi": (
+            employee_contribution
+            + employer_contribution
+        ),
     }
 
 
@@ -104,17 +109,30 @@ previous_gosi = st.selectbox(
     ["Yes", "No", "Not sure"]
 )
 
-# Determine assessment regime
+
+# ============================================================
+# DECISION TREE
+# ============================================================
+
 if nationality == "Saudi":
+
     if previous_gosi == "Yes":
         regime = "Saudi — existing contribution history"
+
     elif previous_gosi == "No":
         regime = "Saudi — new entrant assessment"
+
     else:
         regime = "Saudi — coverage history needs verification"
+
 else:
+
     regime = "Non-Saudi — occupational hazards assessment"
 
+
+# ============================================================
+# CALCULATE
+# ============================================================
 
 if st.button("Calculate GOSI"):
 
@@ -124,12 +142,14 @@ if st.button("Calculate GOSI"):
         housing_allowance
     )
 
-st.subheader("GOSI Assessment")
-st.write(regime)
+    st.subheader("GOSI Assessment")
+    st.write(regime)
 
     st.subheader("Calculation Result")
 
-    st.write(f"**Employee:** {employee_name}")
+    st.write(
+        f"**Employee:** {employee_name}"
+    )
 
     st.write(
         f"**Contributory wage:** "
