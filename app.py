@@ -98,6 +98,10 @@ housing_allowance = st.number_input(
 employment_date = st.date_input(
     "Employment date"
 )
+if employment_date >= __import__("datetime").date(2024, 7, 3):
+    regime = "New Social Insurance Law assessment"
+else:
+    regime = "Existing-system assessment"
 if st.button("Calculate GOSI"):
 
     result = calculate_gosi(
