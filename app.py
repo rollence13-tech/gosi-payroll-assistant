@@ -95,7 +95,9 @@ housing_allowance = st.number_input(
     min_value=0.0,
     value=0.0
 )
-
+employment_date = st.date_input(
+    "Employment date"
+)
 if st.button("Calculate GOSI"):
 
     result = calculate_gosi(
