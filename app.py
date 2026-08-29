@@ -100,10 +100,7 @@ employment_date = st.date_input(
 )
 
 # Determine assessment regime
-if employment_date >= date(2024, 7, 3):
-    regime = "New Social Insurance Law assessment"
-else:
-    regime = "Existing-system assessment"
+regime = "Requires GOSI coverage assessment"
 
 
 if st.button("Calculate GOSI"):
