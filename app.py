@@ -105,7 +105,15 @@ previous_gosi = st.selectbox(
 )
 
 # Determine assessment regime
-regime = "Requires GOSI coverage assessment"
+if nationality == "Saudi":
+    if previous_gosi == "Yes":
+        regime = "Saudi — existing contribution history"
+    elif previous_gosi == "No":
+        regime = "Saudi — new entrant assessment"
+    else:
+        regime = "Saudi — coverage history needs verification"
+else:
+    regime = "Non-Saudi — occupational hazards assessment"
 
 
 if st.button("Calculate GOSI"):
