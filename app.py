@@ -109,8 +109,9 @@ if st.button("Calculate GOSI"):
         basic_salary,
         housing_allowance
     )
+
 st.info(f"Assessment: {regime}")
-    st.subheader("Calculation Result")
+st.subheader("Calculation Result")
 
     st.write(f"**Employee:** {employee_name}")
     st.write(
