@@ -99,6 +99,11 @@ employment_date = st.date_input(
     value=date.today()
 )
 
+previous_gosi = st.selectbox(
+    "Had the employee previously been registered with GOSI?",
+    ["Yes", "No", "Not sure"]
+)
+
 # Determine assessment regime
 regime = "Requires GOSI coverage assessment"
 
