@@ -124,7 +124,8 @@ if st.button("Calculate GOSI"):
         housing_allowance
     )
 
-    st.info(f"Assessment: {regime}")
+st.subheader("GOSI Assessment")
+st.write(regime)
 
     st.subheader("Calculation Result")
 
